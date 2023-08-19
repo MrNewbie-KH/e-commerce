@@ -1,0 +1,29 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrNewbie-KH/e-commerce.git"
+  },
+  "author": "khattab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrNewbie-KH/e-commerce/issues"
+  },
+  "homepage": "https://github.com/MrNewbie-KH/e-commerce#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "mongoose": "^7.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
