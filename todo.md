@@ -21,3 +21,12 @@
 - [x] get single category
 - [x] update category
 - [x] delete category
+
+4. adding error classes and handling different errors
+
+- [x] create error class
+- [x] create bad request class
+- [x] create not found class
+- [x] create unauthorized class
+- [x] create custom error handler
+- [x] create duplicate error handler
