@@ -28,5 +28,9 @@
 - [x] create bad request class
 - [x] create not found class
 - [x] create unauthorized class
-- [x] create custom error handler
-- [x] create duplicate error handler
+
+- [] create not found middleware
+- [x] create error handler middleware
+  - [x] Duplication
+  - [x] Validation Error
+  - [x] custom error

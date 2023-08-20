@@ -7,12 +7,15 @@ const app = new express();
 // routes
 const categotyRouter = require("./routes/category");
 // middlewares
-// errors
+const errorHandlerMiddleware = require("./middlewares/error-handler");
+const notFoundMiddleware = require("./middlewares/not-found");
 // other packages
 const connectDB = require("./db/db");
 // working app
 app.use(express.json());
 app.use("/api/v1/category", categotyRouter);
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 app.get("/", (req, res) => {
   res.send("Welcome to E-COMMERCE application");
 });
