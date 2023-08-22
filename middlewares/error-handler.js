@@ -17,6 +17,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     )} field, please choose another value`;
     customError.statusCode = 400;
   }
+  // when i enter id with 11 chars instead of 12
   if (err.name === "CastError") {
     customError.msg = `No item found with id : ${err.value}`;
     customError.statusCode = 404;

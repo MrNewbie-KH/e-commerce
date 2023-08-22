@@ -34,3 +34,15 @@
   - [x] Duplication
   - [x] Validation Error
   - [x] custom error
+
+5. start working on cruds in sub-category
+
+- [x] sub-Category model {name,category-parent-,timestamp}
+- [x] create sub-category
+- [x] get all sub-categories based on some categoryID
+- [x] **enhance** by returning category name not only the id by applying population
+- [x] create sub-category pagination limit and page
+- [x] get single sub-category
+- [x] update sub-category
+- [x] delete sub-category
+- [x] create brand schema and cruds same as category
