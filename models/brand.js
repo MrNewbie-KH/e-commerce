@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const categorySchema = mongoose.Schema(
+const brandSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please provide a category name"],
-      unique: [true, "Category must be Unique"],
+      required: [true, "Please provide a Brand name"],
+      unique: [true, "Brand must be Unique"],
       minlength: [3, "Too shrt name min 3"],
       maxlength: [50, "too long name max 50"],
       trim: true,
@@ -12,4 +12,4 @@ const categorySchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("categorySchema", categorySchema);
+module.exports = mongoose.model("brandSchema", brandSchema);

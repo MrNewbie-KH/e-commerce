@@ -5,7 +5,9 @@ require("express-async-errors");
 const express = require("express");
 const app = new express();
 // routes
-const categotyRouter = require("./routes/category");
+const categoryRouter = require("./routes/category");
+const subCategoryRouter = require("./routes/subCategory");
+const brandRoute = require("./routes/brand");
 // middlewares
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 const notFoundMiddleware = require("./middlewares/not-found");
@@ -13,7 +15,9 @@ const notFoundMiddleware = require("./middlewares/not-found");
 const connectDB = require("./db/db");
 // working app
 app.use(express.json());
-app.use("/api/v1/category", categotyRouter);
+app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/sub-category", subCategoryRouter);
+app.use("/api/v1/brand", brandRoute);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 app.get("/", (req, res) => {

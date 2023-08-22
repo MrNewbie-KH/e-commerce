@@ -1,6 +1,7 @@
 const { addDash } = require("../utils/generalFunctions");
 const { StatusCodes } = require("http-status-codes");
 const categorySchema = require("../models/category");
+const { NotFoundError } = require("../errors/index");
 // ------------------------------
 const createCategory = async (req, res) => {
   const { name } = req.body;
@@ -20,6 +21,9 @@ const getSingleCategory = async (req, res) => {
   const categoryId = req.params.id;
   // looking for this category by its id
   const category = await categorySchema.findOne({ _id: categoryId });
+  if (!category) {
+    throw new NotFoundError("No category with this ID");
+  }
   res.status(StatusCodes.OK).json({ category });
 };
 // ------------------------------
@@ -31,12 +35,18 @@ const updateCategory = async (req, res) => {
     { name },
     { new: true }
   );
+  if (!category) {
+    throw new NotFoundError("No category with this ID");
+  }
   res.status(StatusCodes.OK).json({ msg: "updated successfully", category });
 };
 // ------------------------------
 const deleteCategory = async (req, res) => {
   const categoryId = req.params.id;
   const category = await categorySchema.findOneAndDelete({ _id: categoryId });
+  if (!category) {
+    throw new NotFoundError("No category with this ID");
+  }
   res.status(StatusCodes.OK).json({ msg: "deleted successfully", category });
 };
 module.exports = {
