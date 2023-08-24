@@ -21,3 +21,6 @@
 - [x] get single category
 - [x] update category
 - [x] delete category
+- add validation layer
+- [x] create some rules
+- [x] create middleware for catching errors in rules
