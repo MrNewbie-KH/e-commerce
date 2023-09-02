@@ -32,7 +32,7 @@ const updateBrand = async (req, res) => {
   const { name } = req.body;
   const brand = await brandSchema.findOneAndUpdate(
     { _id: brandId },
-    { name },
+    { name: addDash(name) },
     { new: true }
   );
   if (!brand) {
