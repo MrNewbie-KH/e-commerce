@@ -1,5 +1,6 @@
 const { param, check } = require("express-validator");
 const validatorMiddleware = require("../../middlewares/validatorMiddleware");
+
 // get subCategoty validator
 const getSubCategotyValidator = [
   check("id")
@@ -14,7 +15,7 @@ const createSubCategotyValidator = [
     .withMessage("subCategoty name is a must format")
     .isLength({ max: 50 })
     .withMessage("Name length can't be more than 50"),
-  check("category")
+  check("categoryId")
     .isMongoId()
     .withMessage("Validate => add valid category ID"),
   validatorMiddleware,

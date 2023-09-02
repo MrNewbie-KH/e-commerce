@@ -15,7 +15,7 @@ const {
 const subCategoryRoute = require("./subCategory");
 const express = require("express");
 const router = express.Router();
-//nested route
+//nested route after /category
 router.use("/:categoryId/sub-category", subCategoryRoute);
 router
   .route("/")

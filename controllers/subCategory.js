@@ -2,14 +2,22 @@ const { addDash } = require("../utils/generalFunctions");
 const { StatusCodes } = require("http-status-codes");
 const subCategorySchema = require("../models/subCategory");
 const { BadRequestError, NotFoundError } = require("../errors/index");
+// ========================
+// set category id to body if it is in params
+const setCategoryId = (req, res, next) => {
+  if (!req.body.categoryId) {
+    req.body.categoryId = req.params.categoryId;
+  }
+  next();
+};
+// ========================
 // ------------------------------
 const createSubCategory = async (req, res) => {
+  // if both added from body
   let { name, categoryId } = req.body;
-  if (!req.body.categoryId) {
-    categoryId = req.params.categoryId;
-  }
+  // else is handled in setCategoryId
   if (!name || !categoryId) {
-    throw new BadRequestError("Please provide bithe name and category");
+    throw new BadRequestError("Please provide both name and category");
   }
   const subCategory = await subCategorySchema.create({
     name: addDash(name),
@@ -20,18 +28,20 @@ const createSubCategory = async (req, res) => {
 // ------------------------------
 const getAllSubCategories = async (req, res) => {
   let filterObject = {};
+  // if catId is added from params
   if (req.params.categoryId) {
     filterObject = { category: req.params.categoryId };
     console.log(filterObject);
   }
+  // else then we will return all subcategories not only ones related to some category
   const limit = parseInt(req.query.limit) || 10;
   const page = parseInt(req.query.page) || 1;
   const dataToSkip = (page - 1) * limit;
   const subCategories = await subCategorySchema
     .find(filterObject)
     .skip(dataToSkip)
-    .limit(limit);
-  // .populate({ path: "category", select: "name" });
+    .limit(limit)
+    .populate({ path: "category", select: "name" });
   res.status(200).json({ subCategories, numOfHits: subCategories.length });
 };
 //------------------------------
@@ -84,4 +94,5 @@ module.exports = {
   createSubCategory,
   updateSubCategory,
   deleteSubCategory,
+  setCategoryId,
 };
