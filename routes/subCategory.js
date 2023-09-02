@@ -7,12 +7,21 @@ const {
 } = require("../controllers/subCategory");
 
 const express = require("express");
+const {
+  createSubCategotyValidator,
+  getSubCategotyValidator,
+  updateSubCategotyValidator,
+  deleteSubCategotyValidator,
+} = require("../utils/validators/subCategoryValidator");
 // allowing access parameters in different routes
 const router = express.Router({ mergeParams: true });
-router.route("/").get(getAllSubCategories).post(createSubCategory);
+router
+  .route("/")
+  .get(getAllSubCategories)
+  .post(createSubCategotyValidator, createSubCategory);
 router
   .route("/:id")
-  .get(getSingleSubCategory)
-  .delete(deleteSubCategory)
-  .patch(updateSubCategory);
+  .get(getSubCategotyValidator, getSingleSubCategory)
+  .delete(deleteSubCategotyValidator, deleteSubCategory)
+  .patch(updateSubCategotyValidator, updateSubCategory);
 module.exports = router;
