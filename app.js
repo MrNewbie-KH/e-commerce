@@ -4,10 +4,11 @@ require("express-async-errors");
 //  express connections
 const express = require("express");
 const app = new express();
-// routes
+// =============routes===========
 const categoryRouter = require("./routes/category");
 const subCategoryRouter = require("./routes/subCategory");
 const brandRoute = require("./routes/brand");
+const productRoute = require("./routes/product");
 // middlewares
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 const notFoundMiddleware = require("./middlewares/not-found");
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/sub-category", subCategoryRouter);
 app.use("/api/v1/brand", brandRoute);
+app.use("/api/v1/product", productRoute);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 app.get("/", (req, res) => {

@@ -46,3 +46,15 @@
 - [x] update sub-category
 - [x] delete sub-category
 - [x] create brand schema and cruds same as category
+
+6. start working on product
+
+- [x] create product model ()
+- [x] create simple cruds first
+- [x] create product routes
+- [x] test in postman
+- [x] start with real cruds
+- [x] create validation layer
+- [x] validate that **category** already in the database
+- [x] validate that **sub-category** array already in the database
+- [x] validate that subcategory is already part of the category provided
