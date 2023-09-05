@@ -58,3 +58,9 @@
 - [x] validate that **category** already in the database
 - [x] validate that **sub-category** array already in the database
 - [x] validate that subcategory is already part of the category provided
+- [x] add dummy data to the project
+- [x] create script to apply some data from json file
+- [x] add different data fields in query but exclude ones which will not be used in filtering
+- [x] create sorting data
+- [x] apply only fields that he wants to appear only to appear."Limit fields to appear"
+- [x] apply searching mechanism

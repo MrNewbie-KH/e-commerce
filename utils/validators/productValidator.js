@@ -6,15 +6,15 @@ const createProductValidator = [
     .withMessage("Title is required field")
     .isString()
     .withMessage("Title must be a string")
-    .isLength({ max: 50 })
+    .isLength({ max: 100 })
     .withMessage("Tiltle can't be more Than 50 characters"),
   check("description")
     .notEmpty()
     .withMessage("Description is required field")
     .isString()
     .withMessage("Title must be a string")
-    .isLength({ max: 300 })
-    .withMessage("Description can't be more Than 300 characters")
+    .isLength({ max: 500 })
+    .withMessage("Description can't be more Than 500 characters")
     .isLength({ min: 20 })
     .withMessage("Description can't be less Than 20 characters"),
   check("quantity")

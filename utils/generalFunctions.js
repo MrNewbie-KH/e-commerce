@@ -1,4 +1,7 @@
 const addDash = (name) => {
   return name.trim().split(" ").join("-");
 };
-module.exports = { addDash };
+const removeChar = (str, char) => {
+  return str.split(char).join(" ");
+};
+module.exports = { addDash, removeChar };
