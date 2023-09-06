@@ -64,3 +64,12 @@
 - [x] create sorting data
 - [x] apply only fields that he wants to appear only to appear."Limit fields to appear"
 - [x] apply searching mechanism
+
+7. Refactoring product
+
+- [x] in utils create file for apiFeatures
+- [x] create class for ApiFeatures
+- [x] handle methods [filter,sort,paginate,limitfields,search]
+- [x] create pagination object to retrieve some data
+- [x] page, limit, numberOfPages, next page, previous page
+- [x] now code is written as build query and execute query
