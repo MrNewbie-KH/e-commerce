@@ -1,6 +1,7 @@
 const { addDash } = require("../utils/generalFunctions");
 const { StatusCodes } = require("http-status-codes");
 const brandSchema = require("../models/brand");
+const ApiFeatures = require("../utils/apiFeatures");
 const { NotFoundError } = require("../errors/index");
 // ------------------------------
 const createBrand = async (req, res) => {
@@ -10,11 +11,22 @@ const createBrand = async (req, res) => {
 };
 // ------------------------------
 const getAllBrands = async (req, res) => {
-  const limit = parseInt(req.query.limit) || 10;
-  const page = parseInt(req.query.page) || 1;
-  const dataToSkip = (page - 1) * limit;
-  const brands = await brandSchema.find().skip(dataToSkip).limit(limit);
-  res.status(200).json({ brands, numOfHits: brands.length });
+  // build query
+  const allDocs = await brandSchema.countDocuments();
+  let apiFeatures = new ApiFeatures(brandSchema.find(), req.query);
+  apiFeatures = apiFeatures
+    .filter()
+    .limitFields()
+    .paginate(allDocs)
+    .search()
+    .sort();
+  // execute query
+  const brands = await apiFeatures.mongooseQuery;
+  res.status(200).json({
+    numOfHits: brands.length,
+    paginationResults: apiFeatures.paginationResults,
+    brands,
+  });
 };
 //------------------------------
 const getSingleBrand = async (req, res) => {

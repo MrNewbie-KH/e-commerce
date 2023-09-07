@@ -1,6 +1,7 @@
 const { addDash } = require("../utils/generalFunctions");
 const { StatusCodes } = require("http-status-codes");
 const categorySchema = require("../models/category");
+const ApiFeatures = require("../utils/apiFeatures");
 const { NotFoundError } = require("../errors/index");
 // ------------------------------
 const createCategory = async (req, res) => {
@@ -10,11 +11,22 @@ const createCategory = async (req, res) => {
 };
 // ------------------------------
 const getAllCategories = async (req, res) => {
-  const limit = parseInt(req.query.limit) || 10;
-  const page = parseInt(req.query.page) || 1;
-  const dataToSkip = (page - 1) * limit;
-  const categories = await categorySchema.find().skip(dataToSkip).limit(limit);
-  res.status(200).json({ categories, numOfHits: categories.length });
+  // build query
+  const allDocs = await categorySchema.countDocuments();
+  let apiFeatures = new ApiFeatures(categorySchema.find(), req.query);
+  apiFeatures = apiFeatures
+    .filter()
+    .limitFields()
+    .paginate(allDocs)
+    .search()
+    .sort();
+  // execute query
+  const categories = await apiFeatures.mongooseQuery;
+  res.status(200).json({
+    numOfHits: categories.length,
+    paginationResults: apiFeatures.paginationResults,
+    categories,
+  });
 };
 //------------------------------
 const getSingleCategory = async (req, res) => {
