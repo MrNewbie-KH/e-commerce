@@ -1,11 +1,39 @@
 const { addDash } = require("../utils/generalFunctions");
 const { StatusCodes } = require("http-status-codes");
 const categorySchema = require("../models/category");
-const { NotFoundError } = require("../errors/index");
+const { NotFoundError, BadRequestError } = require("../errors/index");
+const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
+// ------------------------------
+// multer
+const multerStorage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, "uploads/category");
+  },
+  filename: function (req, file, callback) {
+    // file extension extraction
+    const fileExtension = file.mimetype.split("/")[1];
+    // create unique name
+    const uniqueName = `categoty-${uuidv4()}-${Date.now()}.${fileExtension}`;
+    callback(null, uniqueName);
+  },
+});
+const multerFilter = function (req, file, callback) {
+  if (file.mimetype.startsWith("image")) {
+    callback(null, true);
+  } else {
+    callback(new BadRequestError("Type must be an image"), false);
+  }
+};
+const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+const uploadCategoryImage = upload.single("image");
 // ------------------------------
 const createCategory = async (req, res) => {
-  const { name } = req.body;
-  const category = await categorySchema.create({ name: addDash(name) });
+  const { name, image } = req.body;
+  const category = await categorySchema.create({
+    name: addDash(name),
+    image: req.file.filename,
+  });
   res.status(StatusCodes.CREATED).json({ category });
 };
 // ------------------------------
@@ -55,4 +83,5 @@ module.exports = {
   createCategory,
   updateCategory,
   deleteCategory,
+  uploadCategoryImage,
 };

@@ -4,4 +4,5 @@ const addDash = (name) => {
 const removeChar = (str, char) => {
   return str.split(char).join(" ");
 };
+
 module.exports = { addDash, removeChar };

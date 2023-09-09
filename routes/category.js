@@ -4,6 +4,7 @@ const {
   createCategory,
   updateCategory,
   deleteCategory,
+  uploadCategoryImage,
 } = require("../controllers/category");
 const {
   getCategoryValidator,
@@ -20,7 +21,7 @@ router.use("/:categoryId/sub-category", subCategoryRoute);
 router
   .route("/")
   .get(getAllCategories)
-  .post(createCategoryValidator, createCategory);
+  .post(uploadCategoryImage, createCategoryValidator, createCategory);
 router
   .route("/:id")
   .get(getCategoryValidator, getSingleCategory)

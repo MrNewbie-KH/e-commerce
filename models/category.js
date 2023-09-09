@@ -9,6 +9,10 @@ const categorySchema = mongoose.Schema(
       maxlength: [50, "too long name max 50"],
       trim: true,
     },
+    image: {
+      type: String,
+      required: [true, "Please provide a category Image"],
+    },
   },
   { timestamps: true }
 );

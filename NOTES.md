@@ -1,13 +1,12 @@
 1. Nested routes concept
-2.
-3. In validation : we take actionin this way
+2. In validation : we take actionin this way
 
 - route path "/"
 - fields to validate "rules"
 - middleware for catching error if error occures in previous rules
 - at validator functions inside an array we pass rules then we call the middleware itself
 
-- **Refactoring**
+3. **Refactoring**
 
 ```js
 const getAllProducts = async (req, res) => {
@@ -71,3 +70,25 @@ const getAllProducts = async (req, res) => {
   res.status(200).json({ products, numOfHits: products.length });
 };
 ```
+
+4. File upload using multer
+
+- Multer takes object that has destination
+- when this is done, then it is automatically added a field in req.file || req.files
+- multer has two different storage systems
+  - disc storage and memeory storage
+- multer filter is used to have specific type of files only that you can use
+
+```js
+const multerFilter = function (req, file, callback) {
+  if (file.mimetype.startsWith("image")) {
+    callback(null, true);
+  } else {
+    callback(new BadRequestError("Type must be an image"), false);
+  }
+};
+```
+
+5. Image processing using sharp
+
+- sharp need to have image as **input buffer** so we will use memory storage instead of disc storage in multer

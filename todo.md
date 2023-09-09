@@ -73,3 +73,20 @@
 - [x] create pagination object to retrieve some data
 - [x] page, limit, numberOfPages, next page, previous page
 - [x] now code is written as build query and execute query
+
+8. File upload using multer
+
+- [x] install multer
+- [x] do multer basic configuration
+- [x] create uploadCategoryImage based on basic configuration
+- [x] do some storage configuration
+- [x] make it to disk storage configuration
+- [x] this one is two parts
+  - first [x] destination
+  - second [x] make file name unique
+  - with three parts **uuid time now and the extension**
+- [x] make sure it is image first
+  - this can be done in two different ways
+  - first manually by checking type like what i've built first
+  - second way using multer filter
+- [] start doing some image processing using sharp package
