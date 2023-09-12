@@ -24,7 +24,10 @@
     "express-async-errors": "^3.1.1",
     "express-validator": "^7.0.1",
     "http-status-codes": "^2.2.0",
-    "mongoose": "^6.0.13"
+    "mongoose": "^7.5.0",
+    "multer": "^1.4.5-lts.1",
+    "sharp": "^0.32.5",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

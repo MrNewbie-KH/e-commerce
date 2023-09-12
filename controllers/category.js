@@ -1,12 +1,15 @@
 const { addDash } = require("../utils/generalFunctions");
+const uploadSingleImage = require("../middlewares/uploadImage");
 const { StatusCodes } = require("http-status-codes");
 const categorySchema = require("../models/category");
-const ApiFeatures = require("../utils/apiFeatures");
 const { NotFoundError } = require("../errors/index");
 // ------------------------------
 const createCategory = async (req, res) => {
-  const { name } = req.body;
-  const category = await categorySchema.create({ name: addDash(name) });
+  const { name, image } = req.body;
+  const category = await categorySchema.create({
+    name: addDash(name),
+    image,
+  });
   res.status(StatusCodes.CREATED).json({ category });
 };
 // ------------------------------
@@ -67,4 +70,6 @@ module.exports = {
   createCategory,
   updateCategory,
   deleteCategory,
+  uploadCategoryImage,
+  imageResize,
 };
