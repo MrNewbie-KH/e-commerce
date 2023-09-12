@@ -4,6 +4,8 @@ const {
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  imageResize,
+  uploadImages,
 } = require("../controllers/product");
 const {
   createProductValidator,
@@ -14,7 +16,7 @@ const router = express.Router();
 router
   .route("/")
   .get(getAllProducts)
-  .post(createProductValidator, createProduct);
+  .post(uploadImages, imageResize, createProductValidator, createProduct);
 router
   .route("/:id")
   .get(genericValidator, getSingleProduct)

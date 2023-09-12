@@ -2,6 +2,7 @@
 require("dotenv").config();
 require("express-async-errors");
 //  express connections
+const path = require("path");
 const express = require("express");
 const app = new express();
 // =============routes===========
@@ -14,8 +15,10 @@ const errorHandlerMiddleware = require("./middlewares/error-handler");
 const notFoundMiddleware = require("./middlewares/not-found");
 // other packages
 const connectDB = require("./db/db");
+const exp = require("constants");
 // working app
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "/uploads")));
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/sub-category", subCategoryRouter);
 app.use("/api/v1/brand", brandRoute);

@@ -22,7 +22,7 @@ const products = JSON.parse(fs.readFileSync("./data.json"));
 const insertData = async () => {
   try {
     await productSchema.create(products);
-    console.log("Data inserted successfully".green);
+    console.log("Data inserted successfully");
     process.exit(0); // Exit with success code
   } catch (error) {
     console.error("Error inserting data:", error);
@@ -33,9 +33,9 @@ const insertData = async () => {
 const deleteData = async () => {
   try {
     await productSchema.deleteMany();
-    // await categorySchema.deleteMany();
-    // await subCategorySchema.deleteMany();
-    // await brandSchema.deleteMany();
+    await categorySchema.deleteMany();
+    await subCategorySchema.deleteMany();
+    await brandSchema.deleteMany();
     console.log("Data deleted successfully".red.inverse);
     process.exit(0); // Exit with success code
   } catch (error) {

@@ -73,3 +73,33 @@
 - [x] create pagination object to retrieve some data
 - [x] page, limit, numberOfPages, next page, previous page
 - [x] now code is written as build query and execute query
+
+8. File upload using multer
+
+- [x] install multer
+- [x] do multer basic configuration
+- [x] create uploadCategoryImage based on basic configuration
+- [x] do some storage configuration
+- [x] make it to disk storage configuration
+- [x] this one is two parts
+  - first [x] destination
+  - second [x] make file name unique
+  - with three parts **uuid time now and the extension**
+- [x] make sure it is image first
+  - this can be done in two different ways
+  - first manually by checking type like what i've built first
+  - second way using multer filter
+- [x] start doing some image processing using sharp package
+- [x] install sharp
+- [x] use memorystorage instead of diskstorage
+- [x] create resizeImageMiddleware
+- [x] code refactoring create middleware instead of simple function to uploadSingleImage
+- [x] do same thing with brand image
+- [x] save image name in the data base
+      but when retrieve the document retrieve complete URL for better experience at front-end
+- [x] start uploading array of images instead of just single image
+- [x] upload image for product cover
+- [x] arrayy of images for product
+- [x] use **fields** to accept mix between multi files and single file
+- [x] image processing for the image cover
+- [] make it return url instead of the image name it self
