@@ -5,6 +5,7 @@ const {
   updateCategory,
   deleteCategory,
   uploadCategoryImage,
+  imageResize, // image processing
 } = require("../controllers/category");
 const {
   getCategoryValidator,
@@ -21,10 +22,20 @@ router.use("/:categoryId/sub-category", subCategoryRoute);
 router
   .route("/")
   .get(getAllCategories)
-  .post(uploadCategoryImage, createCategoryValidator, createCategory);
+  .post(
+    uploadCategoryImage,
+    imageResize,
+    createCategoryValidator,
+    createCategory
+  );
 router
   .route("/:id")
   .get(getCategoryValidator, getSingleCategory)
   .delete(deleteCategoryValidator, deleteCategory)
-  .patch(updateCategoryValidator, updateCategory);
+  .patch(
+    uploadCategoryImage,
+    imageResize,
+    updateCategoryValidator,
+    updateCategory
+  );
 module.exports = router;

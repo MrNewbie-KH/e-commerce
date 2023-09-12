@@ -11,9 +11,21 @@ const categorySchema = mongoose.Schema(
     },
     image: {
       type: String,
-      required: [true, "Please provide a category Image"],
+      // required: [true, 'Please provide a category Image "from database"'],
     },
   },
   { timestamps: true }
 );
+categorySchema.post("init", function (document) {
+  if (document.image) {
+    const imageURL = `${process.env.BASE_URL}/category/${document.image}`;
+    document.image = imageURL;
+  }
+});
+categorySchema.post("save", function (document) {
+  if (document.image) {
+    const imageURL = `${process.env.BASE_URL}/category/${document.image}`;
+    document.image = imageURL;
+  }
+});
 module.exports = mongoose.model("categorySchema", categorySchema);

@@ -92,3 +92,26 @@ const multerFilter = function (req, file, callback) {
 5. Image processing using sharp
 
 - sharp need to have image as **input buffer** so we will use memory storage instead of disc storage in multer
+- memory storage returns object as buffer
+- So we use disk-storage in all times, but if it is needed to use buffer then we have to use memory storage
+- using sharp is so easy
+
+```js
+sharp(inputBuffer).doSomeThing().(doAnotherThing)
+```
+
+- sharp is promise so we have to use async await with it
+- ❌❌❌ Attention
+- I've got big fat problem while working as i was trying to store image while no property called image in the req.body
+
+6. Return image URL instead of image name for better front-end experience
+
+- when we use upload.single() -> this returns in the req file property req.file
+- when we use upload .array() -> this returns in the req files property req.files
+
+7. Mechanism of working
+   for example when creating new category
+
+- we hit the route of /category
+- go into uploadImage function which returns a new property in the request
+- then we use sharp to handle the image processing functionality and here we manually add field name in the req.body to be used next in the controller itself

@@ -89,4 +89,17 @@
   - this can be done in two different ways
   - first manually by checking type like what i've built first
   - second way using multer filter
-- [] start doing some image processing using sharp package
+- [x] start doing some image processing using sharp package
+- [x] install sharp
+- [x] use memorystorage instead of diskstorage
+- [x] create resizeImageMiddleware
+- [x] code refactoring create middleware instead of simple function to uploadSingleImage
+- [x] do same thing with brand image
+- [x] save image name in the data base
+      but when retrieve the document retrieve complete URL for better experience at front-end
+- [x] start uploading array of images instead of just single image
+- [x] upload image for product cover
+- [x] arrayy of images for product
+- [x] use **fields** to accept mix between multi files and single file
+- [x] image processing for the image cover
+- [] make it return url instead of the image name it self

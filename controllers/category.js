@@ -1,38 +1,58 @@
 const { addDash } = require("../utils/generalFunctions");
+const uploadSingleImage = require("../middlewares/uploadImage");
 const { StatusCodes } = require("http-status-codes");
 const categorySchema = require("../models/category");
 const { NotFoundError, BadRequestError } = require("../errors/index");
-const multer = require("multer");
+// const multer = require("multer");
+const sharp = require("sharp");
 const { v4: uuidv4 } = require("uuid");
-// ------------------------------
-// multer
-const multerStorage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, "uploads/category");
-  },
-  filename: function (req, file, callback) {
-    // file extension extraction
-    const fileExtension = file.mimetype.split("/")[1];
-    // create unique name
-    const uniqueName = `categoty-${uuidv4()}-${Date.now()}.${fileExtension}`;
-    callback(null, uniqueName);
-  },
-});
-const multerFilter = function (req, file, callback) {
-  if (file.mimetype.startsWith("image")) {
-    callback(null, true);
-  } else {
-    callback(new BadRequestError("Type must be an image"), false);
-  }
+/* multer disk storage
+// const multerStorage = multer.diskStorage({
+//   destination: function (req, file, callback) {
+//     callback(null, "uploads/category");
+//   },
+//   filename: function (req, file, callback) {
+//     // file extension extraction
+//     const fileExtension = file.mimetype.split("/")[1];
+//     // create unique name
+//     const uniqueName = `categoty-${uuidv4()}-${Date.now()}.${fileExtension}`;
+//     callback(null, uniqueName);
+//   },
+// });
+*/
+/* multer filter
+
+// const multerFilter = function (req, file, callback) {
+//   if (file.mimetype.startsWith("image")) {
+//     callback(null, true);
+//   } else {
+//     callback(new BadRequestError("Type must be an image"), false);
+//   }
+// };
+*/
+/* multer memory storage
+const multerStorage = multer.memoryStorage();
+*/
+// image resize with sharp
+const imageResize = async (req, res, next) => {
+  const fileName = `category-${uuidv4()}-${Date.now()}.jpeg`;
+  await sharp(req.file.buffer)
+    .resize(200, 200)
+    .toFormat("jpeg")
+    .jpeg({ quality: 90 })
+    .toFile("uploads/category/" + fileName);
+  // identifying image
+  req.body.image = fileName;
+  next();
 };
-const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
-const uploadCategoryImage = upload.single("image");
+// const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+const uploadCategoryImage = uploadSingleImage("image");
 // ------------------------------
 const createCategory = async (req, res) => {
   const { name, image } = req.body;
   const category = await categorySchema.create({
     name: addDash(name),
-    image: req.file.filename,
+    image,
   });
   res.status(StatusCodes.CREATED).json({ category });
 };
@@ -84,4 +104,5 @@ module.exports = {
   updateCategory,
   deleteCategory,
   uploadCategoryImage,
+  imageResize,
 };

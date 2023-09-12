@@ -2,10 +2,26 @@ const { addDash } = require("../utils/generalFunctions");
 const { StatusCodes } = require("http-status-codes");
 const brandSchema = require("../models/brand");
 const { NotFoundError } = require("../errors/index");
+const { v4: uuidv4 } = require("uuid");
+const sharp = require("sharp");
+const uploadSingleImage = require("../middlewares/uploadImage");
+// ------------------------------
+const uploadBrandImage = uploadSingleImage("image");
+const imageResize = async (req, res, next) => {
+  // file name
+  const fileName = `brand-${uuidv4()}-${Date.now()}.jpeg`;
+  await sharp(req.file.buffer)
+    .resize(600, 600)
+    .toFormat("jpeg")
+    .jpeg({ quality: 90 })
+    .toFile("uploads/brand/" + fileName);
+  req.body.image = fileName; //return image name
+  next();
+};
 // ------------------------------
 const createBrand = async (req, res) => {
-  const { name } = req.body;
-  const brand = await brandSchema.create({ name: addDash(name) });
+  const { name, image } = req.body;
+  const brand = await brandSchema.create({ name: addDash(name), image });
   res.status(StatusCodes.CREATED).json({ brand });
 };
 // ------------------------------
@@ -55,4 +71,6 @@ module.exports = {
   createBrand,
   updateBrand,
   deleteBrand,
+  imageResize,
+  uploadBrandImage,
 };

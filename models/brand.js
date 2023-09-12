@@ -9,7 +9,22 @@ const brandSchema = mongoose.Schema(
       maxlength: [50, "too long name max 50"],
       trim: true,
     },
+    image: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
+brandSchema.post("init", function (document) {
+  if (document.image) {
+    const imageURL = `${process.env.BASE_URL}/brand/${document.image}`;
+    document.image = imageURL;
+  }
+});
+brandSchema.post("save", function (document) {
+  if (document.image) {
+    const imageURL = `${process.env.BASE_URL}/brand/${document.image}`;
+    document.image = imageURL;
+  }
+});
 module.exports = mongoose.model("brandSchema", brandSchema);
