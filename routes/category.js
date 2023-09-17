@@ -1,3 +1,4 @@
+// controllers
 const {
   getAllCategories,
   getSingleCategory,
@@ -7,12 +8,18 @@ const {
   uploadCategoryImage,
   imageResize, // image processing
 } = require("../controllers/category");
+// validation
 const {
   getCategoryValidator,
   deleteCategoryValidator,
   updateCategoryValidator,
   createCategoryValidator,
 } = require("../utils/validators/categoryValidator");
+// middlewares
+const {
+  authenticateMiddleware,
+  authorizeMiddleware,
+} = require("../middlewares/authMiddleware");
 // for creating nested routes mechanism
 const subCategoryRoute = require("./subCategory");
 const express = require("express");
@@ -23,6 +30,8 @@ router
   .route("/")
   .get(getAllCategories)
   .post(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
     uploadCategoryImage,
     imageResize,
     createCategoryValidator,
@@ -31,8 +40,15 @@ router
 router
   .route("/:id")
   .get(getCategoryValidator, getSingleCategory)
-  .delete(deleteCategoryValidator, deleteCategory)
+  .delete(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
+    deleteCategoryValidator,
+    deleteCategory
+  )
   .patch(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
     uploadCategoryImage,
     imageResize,
     updateCategoryValidator,

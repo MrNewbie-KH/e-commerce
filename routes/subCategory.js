@@ -1,3 +1,4 @@
+// controllers
 const {
   getAllSubCategories,
   getSingleSubCategory,
@@ -6,23 +7,44 @@ const {
   deleteSubCategory,
   setCategoryId,
 } = require("../controllers/subCategory");
-
-const express = require("express");
+// validation
 const {
   createSubCategotyValidator,
   getSubCategotyValidator,
   updateSubCategotyValidator,
   deleteSubCategotyValidator,
 } = require("../utils/validators/subCategoryValidator");
+// middlewares
+const {
+  authenticateMiddleware,
+  authorizeMiddleware,
+} = require("../middlewares/authMiddleware");
 // allowing access parameters in different routes
+const express = require("express");
 const router = express.Router({ mergeParams: true });
 router
   .route("/")
   .get(getAllSubCategories)
-  .post(setCategoryId, createSubCategotyValidator, createSubCategory);
+  .post(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
+    setCategoryId,
+    createSubCategotyValidator,
+    createSubCategory
+  );
 router
   .route("/:id")
   .get(getSubCategotyValidator, getSingleSubCategory)
-  .delete(deleteSubCategotyValidator, deleteSubCategory)
-  .patch(updateSubCategotyValidator, updateSubCategory);
+  .delete(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
+    deleteSubCategotyValidator,
+    deleteSubCategory
+  )
+  .patch(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
+    updateSubCategotyValidator,
+    updateSubCategory
+  );
 module.exports = router;

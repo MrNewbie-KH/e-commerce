@@ -3,6 +3,21 @@ const uploadSingleImage = require("../middlewares/uploadImage");
 const { StatusCodes } = require("http-status-codes");
 const categorySchema = require("../models/category");
 const { NotFoundError } = require("../errors/index");
+const ApiFeatures = require("../utils/apiFeatures");
+const { v4: uuidv4 } = require("uuid");
+const sharp = require("sharp");
+// ------------------------------
+const uploadCategoryImage = uploadSingleImage("image");
+const imageResize = async function (req, res, next) {
+  const fileName = `category-${uuidv4()}-${Date.now()}.jpeg`;
+  await sharp(req.file.buffer)
+    .resize(600, 600)
+    .toFormat("jpeg")
+    .jpeg({ quality: 90 })
+    .toFile("uploads/category/" + fileName);
+  req.body.image = fileName;
+  next();
+};
 // ------------------------------
 const createCategory = async (req, res) => {
   const { name, image } = req.body;
@@ -16,6 +31,7 @@ const createCategory = async (req, res) => {
 const getAllCategories = async (req, res) => {
   // build query
   const allDocs = await categorySchema.countDocuments();
+
   let apiFeatures = new ApiFeatures(categorySchema.find(), req.query);
   apiFeatures = apiFeatures
     .filter()

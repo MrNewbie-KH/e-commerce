@@ -1,3 +1,4 @@
+// controlles
 const {
   getAllBrands,
   getSingleBrand,
@@ -7,21 +8,44 @@ const {
   uploadBrandImage,
   imageResize,
 } = require("../controllers/brand");
+// validation
 const {
   getBrandValidator,
   createBrandValidator,
   updateBrandValidator,
   deleteBrandValidator,
 } = require("../utils/validators/brandValidator");
+// middlewares
+const {
+  authenticateMiddleware,
+  authorizeMiddleware,
+} = require("../middlewares/authMiddleware");
 const express = require("express");
 const router = express.Router();
 router
   .route("/")
   .get(getAllBrands)
-  .post(uploadBrandImage, imageResize, createBrandValidator, createBrand);
+  .post(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
+    uploadBrandImage,
+    imageResize,
+    createBrandValidator,
+    createBrand
+  );
 router
   .route("/:id")
   .get(getBrandValidator, getSingleBrand)
-  .delete(deleteBrandValidator, deleteBrand)
-  .patch(updateBrandValidator, updateBrand);
+  .delete(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
+    deleteBrandValidator,
+    deleteBrand
+  )
+  .patch(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
+    updateBrandValidator,
+    updateBrand
+  );
 module.exports = router;

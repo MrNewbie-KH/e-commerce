@@ -1,3 +1,4 @@
+// controllers
 const {
   createProduct,
   getAllProducts,
@@ -7,19 +8,42 @@ const {
   imageResize,
   uploadImages,
 } = require("../controllers/product");
+// validation
 const {
   createProductValidator,
   genericValidator,
 } = require("../utils/validators/productValidator");
+// middlewares
+const {
+  authenticateMiddleware,
+  authorizeMiddleware,
+} = require("../middlewares/authMiddleware");
 const express = require("express");
 const router = express.Router();
 router
   .route("/")
   .get(getAllProducts)
-  .post(uploadImages, imageResize, createProductValidator, createProduct);
+  .post(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
+    uploadImages,
+    imageResize,
+    createProductValidator,
+    createProduct
+  );
 router
   .route("/:id")
   .get(genericValidator, getSingleProduct)
-  .delete(genericValidator, deleteProduct)
-  .patch(genericValidator, updateProduct);
+  .delete(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
+    genericValidator,
+    deleteProduct
+  )
+  .patch(
+    authenticateMiddleware,
+    authorizeMiddleware("admin"),
+    genericValidator,
+    updateProduct
+  );
 module.exports = router;

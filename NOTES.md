@@ -115,3 +115,14 @@ sharp(inputBuffer).doSomeThing().(doAnotherThing)
 - we hit the route of /category
 - go into uploadImage function which returns a new property in the request
 - then we use sharp to handle the image processing functionality and here we manually add field name in the req.body to be used next in the controller itself
+
+- it is bad to use confirm password as field in database as it doesn't matter to have it in database.
+
+- It's better to use another route which is another route to handle password change
+
+- reset code must be changed to string before saving to db as it gonna be encrypted
+
+- Sending emails
+  - first you look for a service which gonna play the role of transporter
+  - define email options from to subject ...etc
+  - send email itself
