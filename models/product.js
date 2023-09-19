@@ -87,4 +87,4 @@ productSchema.virtual("reviews", {
   foreignField: "product",
   localField: "_id",
 });
-module.exports = mongoose.model("productschema", productSchema);
+module.exports = mongoose.model("productSchema", productSchema);

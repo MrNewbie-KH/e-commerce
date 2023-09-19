@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin", "manager"],
       default: "user",
     },
+    wishlist: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "productSchema",
+      },
+    ],
     resetCode: String,
     resetExpireDate: Date,
     resetCodeVerify: Boolean,

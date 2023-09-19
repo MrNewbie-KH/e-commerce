@@ -133,3 +133,15 @@ sharp(inputBuffer).doSomeThing().(doAnotherThing)
   - first you look for a service which gonna play the role of transporter
   - define email options from to subject ...etc
   - send email itself
+
+9. Aggregation pipelining
+
+```js
+reviewSchema.statics.calcAverageAndSum = function(productId){
+await this.aggregate([
+// 1) stage 1 matching
+// 2) stage 2 grouping and applyig logic
+// 3) change values in the this
+])
+}
+```

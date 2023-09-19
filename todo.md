@@ -143,4 +143,9 @@
 - [x] Routes
 - [x] create virtual property
 - [x] nested route product/reviews
-- [] Aggregation Pipeline.
+- [x] Aggregation Pipeline.
+
+11. Wishlist
+
+- [x] add product to wishList
+- [x] remove product from wishList
