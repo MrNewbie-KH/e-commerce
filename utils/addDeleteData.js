@@ -5,6 +5,8 @@ const productSchema = require("../models/product");
 const categorySchema = require("../models/category");
 const subCategorySchema = require("../models/subCategory");
 const brandSchema = require("../models/brand");
+const reviewSchema = require("../models/review");
+const userSchema = require("../models/user");
 const fs = require("fs");
 
 const start = async () => {
@@ -32,10 +34,12 @@ const insertData = async () => {
 
 const deleteData = async () => {
   try {
-    await productSchema.deleteMany();
+    // await productSchema.deleteMany();
     await categorySchema.deleteMany();
     await subCategorySchema.deleteMany();
     await brandSchema.deleteMany();
+    await reviewSchema.deleteMany();
+    await userSchema.deleteMany();
     console.log("Data deleted successfully".red.inverse);
     process.exit(0); // Exit with success code
   } catch (error) {

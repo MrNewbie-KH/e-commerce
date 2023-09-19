@@ -43,7 +43,7 @@ const getSingleReview = async (req, res) => {
 // get all reviews
 const getAllReviews = async (req, res) => {
   const reviews = await reviewSchema
-    .find({ product: req.body.productId })
+    .find({ product: req.body.product })
     .populate({ path: "user", select: "name" });
   res.status(StatusCodes.OK).json({ numberOfHits: reviews.length, reviews });
 };
@@ -58,6 +58,7 @@ const updateReview = async (req, res) => {
   if (!review) {
     throw new NotFoundError("No review with this ID");
   }
+  await review.constructor.calcRatingAverageAndRatingNumber(review.product);
   res.status(StatusCodes.OK).json({ msg: "Updated successfully", review });
 };
 // delete review
@@ -67,6 +68,8 @@ const deleteReview = async (req, res) => {
   if (!review) {
     throw new NotFoundError("No review with this ID");
   }
+  await review.constructor.calcRatingAverageAndRatingNumber(review.product);
+
   res.status(StatusCodes.OK).json({ msg: "Deleted successfully", review });
 };
 module.exports = {

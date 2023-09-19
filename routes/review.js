@@ -44,7 +44,7 @@ router
   )
   .delete(
     authenticateMiddleware,
-    authorizeMiddleware("user", "admin"),
+    authorizeMiddleware("user"),
     deleteReviewValidator,
     deleteReview
   );

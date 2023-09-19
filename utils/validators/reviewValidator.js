@@ -50,7 +50,7 @@ const updateReviewValidator = [
     .withMessage("Invalid Review ID")
     .custom(async (val, { req }) => {
       // make sure that user has only review/product
-      const review = await reviewSchema.findOne({ val });
+      const review = await reviewSchema.findOne({ _id: val });
       if (!review) {
         throw new NotFoundError("No review with this ID");
       }
@@ -67,7 +67,7 @@ const deleteReviewValidator = [
     .withMessage("Invalid Review ID")
     .custom(async (val, { req }) => {
       // make sure that user has only review/product
-      const review = await reviewSchema.findOne(val);
+      const review = await reviewSchema.findOne({ _id: val });
       if (!review) {
         throw new NotFoundError("No review with this ID");
       }
