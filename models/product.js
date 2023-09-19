@@ -59,8 +59,9 @@ const productSchema = new mongoose.Schema(
       ref: "brandSchema",
     },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+// chainging FROM name to URL
 productSchema.post("save", function () {
   this.coverImage = `${process.env.BASE_URL}/product/${this.coverImage}`;
   const imageList = [];
@@ -70,6 +71,7 @@ productSchema.post("save", function () {
   });
   this.images = imageList;
 });
+// chainging FROM name to URL
 productSchema.post("init", function () {
   this.coverImage = `${process.env.BASE_URL}/product/${this.coverImage}`;
   const imageList = [];
@@ -78,5 +80,11 @@ productSchema.post("init", function () {
     imageList.push(image);
   });
   this.images = imageList;
+});
+// Virtual property to handle product with all its reviews
+productSchema.virtual("reviews", {
+  ref: "reviewSchema",
+  foreignField: "product",
+  localField: "_id",
 });
 module.exports = mongoose.model("productschema", productSchema);

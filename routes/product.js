@@ -20,6 +20,10 @@ const {
 } = require("../middlewares/authMiddleware");
 const express = require("express");
 const router = express.Router();
+// nested route to handle reviews in product
+const reviewRoute = require("../routes/review");
+// nesting
+router.use("/:productId/review", reviewRoute);
 router
   .route("/")
   .get(getAllProducts)

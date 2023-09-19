@@ -134,3 +134,12 @@
   - [x] step 2 verify reset code and submit
   - [x] step 3 set new password
 - sending emails using **nodeMailer**
+
+10. Reviews
+
+- [x] create review schema (title,rating,user,product)
+- [x] CRUDS
+- [x] CRUDS validation
+- [x] Routes
+- [x] create virtual property
+- [x] nested route product/reviews

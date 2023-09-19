@@ -28,6 +28,7 @@ const authenticateMiddleware = async (req, res, next) => {
 const authorizeMiddleware =
   (...roles) =>
   async (req, res, next) => {
+    // console.log(req.user.role);
     if (!roles.includes(req.user.role))
       throw new UnauthorizedError("Not allowed to access this route");
     //  access roles from parameters

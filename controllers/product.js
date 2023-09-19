@@ -60,6 +60,7 @@ const imageResize = async function (req, res, next) {
   }
   next();
 };
+
 // ------------------------------
 const createProduct = async (req, res) => {
   req.body.title = addDash(req.body.title);
@@ -110,7 +111,9 @@ const getAllProducts = async (req, res) => {
 // ------------------------------
 const getSingleProduct = async (req, res) => {
   const productId = req.params.id;
-  const product = await productSchema.findOne({ _id: productId });
+  const product = await productSchema
+    .findOne({ _id: productId })
+    .populate("reviews");
   if (!product) {
     throw new NotFoundError("No Product with this ID");
   }

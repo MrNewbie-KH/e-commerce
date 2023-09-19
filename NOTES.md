@@ -1,4 +1,11 @@
 1. Nested routes concept
+
+- Nested routes is very easy
+  we make it available in this way ->
+  for example Get review through products
+  host/api/v1/product/:someProductId/review
+  find me all reviews on product which has this product id
+
 2. In validation : we take actionin this way
 
 - route path "/"
