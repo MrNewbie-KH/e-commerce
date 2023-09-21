@@ -149,3 +149,17 @@
 
 - [x] add product to wishList
 - [x] remove product from wishList
+
+12. Cart
+
+- [x] coupon schema
+- [x] controllers and router
+- [x] cart schema
+- [x] cart controller
+  - [] add product to cart by only user
+  - different scenarios
+  - [] if no cart create one and add it
+  - [] if cart and not there add
+  - [] if cart and there count++
+  - [] if cart and there but different color add new item
+- [x] cart routes
