@@ -16,6 +16,7 @@ const reviewRoute = require("./routes/review");
 const wishlistRoute = require("./routes/wishlist");
 const couponRoute = require("./routes/coupon");
 const cartRoute = require("./routes/cart");
+const orderRoute = require("./routes/order");
 // middlewares
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 const notFoundMiddleware = require("./middlewares/not-found");
@@ -35,6 +36,7 @@ app.use("/api/v1/review", reviewRoute);
 app.use("/api/v1/wishlist", wishlistRoute);
 app.use("/api/v1/coupon", couponRoute);
 app.use("/api/v1/cart", cartRoute);
+app.use("/api/v1/order", orderRoute);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 app.get("/", (req, res) => {

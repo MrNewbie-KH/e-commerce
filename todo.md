@@ -163,3 +163,8 @@
   - [x] if cart and there count++
   - [x] if cart and there but different color add new item
 - [x] cart routes
+
+13. orders
+
+- [x] paying in cash
+- [] paying using payment method

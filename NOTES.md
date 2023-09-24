@@ -145,3 +145,31 @@ await this.aggregate([
 ])
 }
 ```
+
+10. handling problem of quantity in cart and stock
+
+```js
+  // play with quantity
+  // handled using simple for loop
+  for (let i = 0; i < cart.cartItems.length; i++) {
+    const product = await productSchema.findOne({
+      _id: cart.cartItems[i].product,
+    });
+    if (product.quantity < cart.cartItems[i].quantity) {
+      throw new BadRequestError("Not enough in stock");
+    }
+    product.quantity -= cart.cartItems[i].quantity; // dec stock
+    product.numberOfSoldItems += cart.cartItems[i].quantity; // inc sold items
+    await product.save();
+  }
+  // ---------
+  cart.cartItems.forEach( (item) => {
+    const product = await productSchema.findOne({ _id: item.product });
+    if (product.quantity < item.quantity) {
+      return new BadRequestError("Not enough in stock");
+    }
+    product.quantity -= item.quantity; // dec stock
+    product.numberOfSoldItems += item.quantity; // inc sold items
+    await product.save();
+  });
+```
