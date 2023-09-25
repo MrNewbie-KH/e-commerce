@@ -167,4 +167,4 @@
 13. orders
 
 - [x] paying in cash
-- [] paying using payment method
+- [x] paying using payment method

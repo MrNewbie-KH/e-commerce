@@ -5,6 +5,7 @@ require("express-async-errors");
 const path = require("path");
 const express = require("express");
 const app = new express();
+const cors = require("cors");
 // =============routes===========
 const categoryRouter = require("./routes/category");
 const subCategoryRouter = require("./routes/subCategory");
@@ -25,6 +26,8 @@ const connectDB = require("./db/db");
 const exp = require("constants");
 // working app
 app.use(express.json());
+app.use(cors());
+app.options("*", cors());
 app.use(express.static(path.join(__dirname, "/uploads")));
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/sub-category", subCategoryRouter);
