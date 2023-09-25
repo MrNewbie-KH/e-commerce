@@ -168,3 +168,5 @@
 
 - [x] paying in cash
 - [x] paying using payment method
+
+14. Done
